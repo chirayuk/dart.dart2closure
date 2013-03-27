@@ -1,4 +1,12 @@
-part of dart2closure;
+import 'dart:io';
+
+import 'package:analyzer_experimental/src/generated/ast.dart';
+import 'package:analyzer_experimental/src/generated/parser.dart';
+import 'package:analyzer_experimental/src/generated/scanner.dart';
+
+// Package local imports.
+import 'package:dart2closure/listeners.dart';
+
 
 CompilationUnit parseText(String text) {
   List<ErrorCode> errorCodes;
@@ -9,6 +17,12 @@ CompilationUnit parseText(String text) {
   CompilationUnit unit = parser.parseCompilationUnit(token);
   // TODO(chirayu): When is "errorCodes" valid?
   return unit;
+}
+
+
+CompilationUnit parseStream(Stream stream) {
+  var text = file.readAsStringSync();
+  return parseText(text);
 }
 
 
